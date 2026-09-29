@@ -34,7 +34,8 @@ export const ExperienceSection: React.FC = () => {
                                 <div className="flex flex-wrap justify-between items-baseline gap-x-4 gap-y-1 text-[#69727D]">
                                     <span>CURRENT ROLE:</span>
                                     <span className="text-right text-[#0066FF] font-semibold">
-                                        R&amp;D ENGINEER
+                                        FULL STACK WEB DEVELOPER - RESEARCH AND
+                                        ENGINEER DIVISION
                                     </span>
                                 </div>
                                 <div className="flex flex-wrap justify-between items-baseline gap-x-4 gap-y-1 text-[#69727D]">

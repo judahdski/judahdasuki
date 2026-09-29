@@ -188,7 +188,7 @@ export const PORTFOLIO_DATA = {
   experience: [
     {
       company: "PT. Inovasi Mitra Sejati",
-      role: "Research and Development Engineer",
+      role: "Full Stack Web Developer - Research and Engineer Division",
       period: "Jan 2025 – Present",
       location: "Jakarta / Remote",
       responsibilities: [
