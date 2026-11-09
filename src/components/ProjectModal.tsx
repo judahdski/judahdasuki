@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Project } from '../data/portfolioData';
 import { ProjectVisual } from './ProjectVisual';
+import { ProjectCaseStudyContext, ProjectCaseStudyEvidence, ProjectCaseStudyFlow } from './ProjectCaseStudy';
 
 interface ProjectModalProps {
   project: Project | null;
@@ -28,6 +29,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
     <div
       role="dialog"
       aria-modal="true"
+      aria-label={project.title}
       className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-[#080B0F]/90 backdrop-blur-md animate-fade-in"
       onClick={onClose}
     >
@@ -66,13 +68,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             </p>
             <div className="mt-2 text-xs font-mono text-[#69727D] flex flex-wrap items-center gap-2">
               <span>{project.organization}</span>
-              <span>·</span>
-              <span>{project.period}</span>
+              {project.period && <><span>·</span><span>{project.period}</span></>}
+              {project.caseStudy && <><span>·</span><span>{project.caseStudy.role}</span></>}
             </div>
           </div>
 
           {/* Interactive visual */}
-          <div className="h-[280px] sm:h-[340px]">
+          <div className={project.caseStudy ? 'min-h-[280px] sm:min-h-[340px]' : 'h-[280px] sm:h-[340px]'}>
             <ProjectVisual type={project.visualType} title={project.title} isHovered={true} />
           </div>
 
@@ -86,11 +88,14 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             </p>
           </div>
 
+          {project.caseStudy && <ProjectCaseStudyContext study={project.caseStudy} />}
+
           {/* Architecture Pillars */}
           <div className="space-y-3">
             <h3 className="text-xs uppercase tracking-[0.2em] font-semibold text-[#9AA3AD]">
               Architectural Decisions & Implementation
             </h3>
+            {project.caseStudy && <ProjectCaseStudyFlow study={project.caseStudy} />}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {project.architecturePoints.map((point, idx) => (
                 <div key={idx} className="bg-[#111720] border border-[#1E2633] p-4 rounded-lg">
@@ -120,6 +125,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             </ul>
           </div>
 
+          {project.caseStudy && <ProjectCaseStudyEvidence study={project.caseStudy} />}
+
           {/* Technologies Stack */}
           <div className="space-y-3 pt-3 border-t border-[#1E2631]">
             <h3 className="text-xs uppercase tracking-[0.2em] font-semibold text-[#9AA3AD]">
@@ -141,7 +148,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
         {/* Modal footer */}
         <div className="mt-8 pt-4 border-t border-[#1E2631] flex items-center justify-between">
           <span className="text-[11px] font-mono text-[#69727D]">
-            CONFIDENTIAL REPOSITORY · ARCHITECTURE OVERVIEW
+            {project.caseStudy ? 'ENGINEERING PROTOTYPE · DOCUMENTED TEST COVERAGE' : 'CONFIDENTIAL REPOSITORY · ARCHITECTURE OVERVIEW'}
           </span>
           <button
             onClick={onClose}

@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
+import type { Project } from '../data/portfolioData';
+import { AdayaProjectVisual } from './AdayaProjectVisual';
 
 interface ProjectVisualProps {
-  type: 'gis' | 'multifinance' | 'modernization' | 'rnd';
+  type: Project['visualType'];
   title: string;
   isHovered?: boolean;
 }
 
 export const ProjectVisual: React.FC<ProjectVisualProps> = ({ type, title, isHovered = false }) => {
   const [activeTab, setActiveTab] = useState<number>(0);
+
+  if (type === 'adaya') {
+    return <AdayaProjectVisual isHovered={isHovered} />;
+  }
 
   if (type === 'gis') {
     return (

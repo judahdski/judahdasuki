@@ -1,3 +1,16 @@
+export interface ProjectCaseStudy {
+  role: string;
+  problem: string;
+  challenges: { title: string; detail: string }[];
+  flow: string[];
+  transactionNote: string;
+  tests: { id: string; title: string; setup: string; result: string; scope: string }[];
+  testEnvironment: string;
+  testCommand: string;
+  limitations: string[];
+  takeaway: string;
+}
+
 export interface Project {
   id: string;
   number: string;
@@ -11,7 +24,8 @@ export interface Project {
   technologies: string[];
   keyHighlights: string[];
   architecturePoints: { title: string; detail: string }[];
-  visualType: 'gis' | 'multifinance' | 'modernization' | 'rnd';
+  visualType: 'gis' | 'multifinance' | 'modernization' | 'rnd' | 'adaya';
+  caseStudy?: ProjectCaseStudy;
 }
 
 export interface Experience {
@@ -182,6 +196,73 @@ export const PORTFOLIO_DATA = {
         { title: "Automated QA Gate", detail: "Configured K6 stress testing scripts and OWASP ZAP vulnerability scanners before staging promotion." }
       ],
       visualType: "rnd"
+    },
+    {
+      id: "adaya-order-management",
+      number: "05",
+      title: "ADAYA ORDER MANAGEMENT",
+      subtitle: "Concurrency-Safe Order Management API",
+      category: "BACKEND · DATA CONSISTENCY",
+      period: "",
+      organization: "Technical Assessment",
+      description: "An order management API prototype designed to prevent inventory overselling, duplicate orders, and conflicting status updates under concurrent requests.",
+      extendedDescription: "Built an ASP.NET Core API around database-enforced business invariants. Conditional stock updates, persistent idempotency keys, and optimistic concurrency protect order processing, while structured request logs and correlation IDs support investigation. The case study describes implementation and test coverage documented in the project README.",
+      technologies: ["ASP.NET Core 10", "C#", "EF Core", "SQL Server", "xUnit", "REST API"],
+      keyHighlights: [
+        "Atomic stock deduction prevents overselling across competing orders",
+        "Database-backed idempotency returns one order for repeated submissions",
+        "Rowversion detects stale status updates; cancellation restores stock atomically",
+        "Structured JSON logs, request correlation IDs, and consistent API errors"
+      ],
+      architecturePoints: [
+        { title: "Atomic Inventory Updates", detail: "A conditional SQL update avoids read-then-write stock races. The key claim, stock changes, order, and items share one transaction, so a failed item rolls back the entire order." },
+        { title: "Database-Enforced Idempotency", detail: "A primary key arbitrates claims across application processes. A SHA-256 hash with items sorted by product ID distinguishes a matching retry, which returns the stored order, from different content, which returns 409." },
+        { title: "Versioned Status Changes", detail: "Rowversion detects stale writes without holding locks throughout request processing. Status changes and cancellation stock restoration commit together; a conflict or failed restoration rolls both back." }
+      ],
+      visualType: "adaya",
+      caseStudy: {
+        role: "Backend Developer · Engineering Prototype",
+        problem: "Overlapping requests can each look valid while producing duplicate orders, oversold inventory, or conflicting status changes. This technical assessment explores how to preserve those business invariants at the database boundary and make rejected operations traceable.",
+        challenges: [
+          { title: "Inventory under contention", detail: "Two orders can read the same available stock. Checking availability inside the update avoids relying on an earlier read, while a transaction keeps all items consistent." },
+          { title: "Retries arriving together", detail: "A retry can arrive before the first request commits. The database primary key decides which request owns the idempotency key, including across application processes." },
+          { title: "Conflicting status changes", detail: "Valid transitions can compete against the same order version. A rowversion check detects stale writes, and cancellation restores inventory within the same transaction." }
+        ],
+        flow: ["Controller", "Application Services", "EF Core", "SQL Server"],
+        transactionNote: "Create: claim key → deduct stock → save order and items → commit. Status update: validate transition → save with rowversion check → restore stock if cancelled → commit. A failure rolls back the transaction.",
+        tests: [
+          {
+            id: "A",
+            title: "Concurrent stock deduction",
+            setup: "15 units available. Two requests with different keys each order 10 units.",
+            result: "One 201 Created, one 409 Conflict, one stored order, and 5 units remaining.",
+            scope: "Documented HTTP integration test against SQL Server; this scenario checks stock contention, not sustained load."
+          },
+          {
+            id: "B",
+            title: "Stale status update",
+            setup: "A DbContext attempts to save an order after its rowversion has become stale.",
+            result: "The stale write is rejected. Separate cancellation tests cover stock restoration and rollback when restoration fails.",
+            scope: "Documented DbContext concurrency coverage; two simultaneous HTTP status requests have not been tested."
+          },
+          {
+            id: "C",
+            title: "Concurrent idempotent requests",
+            setup: "Two identical HTTP requests share one key. A test-only barrier overlaps transactions before the key claim is saved.",
+            result: "201 + 200, the same OrderId, one order, one key, and 5 units remaining.",
+            scope: "Task.WhenAll and a SaveChangesInterceptor enforce overlap at the claim boundary; this does not prove every possible interleaving."
+          }
+        ],
+        testEnvironment: "Documented backend coverage uses xUnit, WebApplicationFactory, and temporary SQL Server databases with migrations and seeded products. These scenarios summarize the README; they are not live test results from this portfolio.",
+        testCommand: "dotnet test AdayaOrderManagement.slnx",
+        limitations: [
+          "Prototype scope: no authentication, authorization, or product-management endpoints; products must be populated outside the API.",
+          "Idempotency keys are global and permanent. There is no automatic retry; deadlocks and unhandled SQL failures use the general 500 response.",
+          "Observability is limited to structured console logs. Centralized monitoring is absent, and known status-log template issues still need correction.",
+          "Coverage does not establish sustained-load behavior or simultaneous HTTP status-update safety; broader concurrency testing remains necessary."
+        ],
+        takeaway: "Correctness depends on preserving business invariants when requests overlap. Database constraints, explicit transaction boundaries, and targeted concurrency tests make those guarantees concrete—and their limits visible."
+      }
     }
   ] as Project[],
 
