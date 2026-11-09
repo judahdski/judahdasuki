@@ -9,30 +9,32 @@ export const ProjectShowcase: React.FC = () => {
 
   return (
     <section id="projects" className="py-20 sm:py-28 border-t border-[#1C242F] bg-[#080B0F] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid min-w-0 grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
         
-        {/* Section Header with Editorial Rhythm */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 sm:mb-20 pb-6 border-b border-[#1E2631]">
-          <div>
-            <div className="flex items-center gap-2.5 text-xs font-mono text-[#0066FF] uppercase tracking-[0.2em] mb-2 font-semibold">
-              <span>02</span>
-              <span>/</span>
-              <span>PORTFOLIO SHOWCASE</span>
+        {/* Right Column: Sticky Editorial Heading & Summary */}
+        <div className="min-w-0 lg:col-span-4 lg:order-2">
+          <div className="[container-type:inline-size] flex flex-col md:flex-row md:items-end lg:flex-col lg:items-stretch justify-between mb-4 sm:mb-10 lg:mb-0 pb-6 lg:pb-0 border-b lg:border-b-0 border-[#1E2631] lg:sticky lg:top-28">
+            <div>
+              <div className="flex items-center gap-2.5 text-xs font-mono text-[#0066FF] uppercase tracking-[0.2em] mb-2 font-semibold">
+                <span>02</span>
+                <span>/</span>
+                <span>PORTFOLIO SHOWCASE</span>
+              </div>
+              <h2 className="text-3xl sm:text-5xl lg:text-[min(3rem,9cqi)] lg:leading-tight font-display font-extrabold uppercase text-[#F2F3F5] tracking-tight">
+                SELECTED <br className="hidden lg:block" />
+                WORK
+              </h2>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-display font-extrabold uppercase text-[#F2F3F5] tracking-tight">
-              SELECTED WORK
-            </h2>
+            <p className="mt-4 md:mt-0 lg:mt-4 text-sm text-[#9AA3AD] max-w-md font-normal leading-relaxed">
+              Selected systems and applications I&apos;ve worked on across enterprise software, internal platforms, and engineering initiatives.
+            </p>
           </div>
-          <p className="mt-4 md:mt-0 text-sm text-[#9AA3AD] max-w-md font-normal leading-relaxed">
-            Selected systems and applications I&apos;ve worked on across enterprise software, internal platforms, and engineering initiatives.
-          </p>
         </div>
 
-        {/* Large Editorial Horizontal Project Cards */}
-        <div className="space-y-12 sm:space-y-16">
-          {PORTFOLIO_DATA.projects.map((project, index) => {
+        {/* Left Column: Project Cards */}
+        <div className="min-w-0 lg:col-span-8 lg:order-1 space-y-12 sm:space-y-16">
+          {PORTFOLIO_DATA.projects.map((project) => {
             const isHovered = hoveredProjectId === project.id;
-            const isEven = index % 2 === 1;
 
             return (
               <div
@@ -40,15 +42,15 @@ export const ProjectShowcase: React.FC = () => {
                 onMouseEnter={() => setHoveredProjectId(project.id)}
                 onMouseLeave={() => setHoveredProjectId(null)}
                 onClick={() => setSelectedProject(project)}
-                className="group relative bg-[#0D1219] hover:bg-[#101620] border border-[#202936] hover:border-[#0066FF]/60 rounded-xl p-5 sm:p-8 lg:p-10 transition-all duration-300 cursor-pointer shadow-xl"
+                className="group relative min-w-0 bg-[#0D1219] hover:bg-[#101620] border border-[#202936] hover:border-[#0066FF]/60 rounded-xl p-5 sm:p-8 transition-all duration-300 cursor-pointer shadow-xl"
               >
-                <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 items-center ${isEven ? 'lg:flex-row-reverse' : ''}`}>
+                <div className="grid min-w-0 grid-cols-1 gap-8">
                   
                   {/* Text Information Column */}
-                  <div className={`lg:col-span-6 flex flex-col justify-between ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
+                  <div className="min-w-0 flex flex-col justify-between">
                     <div>
                       {/* Top project metadata bar */}
-                      <div className="flex items-center justify-between text-xs font-mono text-[#69727D] mb-4">
+                      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 text-xs font-mono text-[#69727D] mb-4">
                         <span className="text-2xl sm:text-3xl font-display font-extrabold text-[#F2F3F5] tracking-tight group-hover:text-[#0066FF] transition-colors">
                           {project.number}
                         </span>
@@ -82,7 +84,7 @@ export const ProjectShowcase: React.FC = () => {
                     </div>
 
                     {/* Technologies unboxed typography */}
-                    <div className="pt-4 border-t border-[#1C2530] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div className="pt-4 border-t border-[#1C2530]">
                       <div className="text-xs text-[#69727D] font-mono flex flex-wrap gap-x-2 gap-y-1">
                         {project.technologies.slice(0, 6).map((tech, i, arr) => (
                           <React.Fragment key={tech}>
@@ -92,22 +94,11 @@ export const ProjectShowcase: React.FC = () => {
                         ))}
                       </div>
 
-                      {/* Interactive View Case Study trigger */}
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSelectedProject(project);
-                        }}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.16em] text-[#F2F3F5] group-hover:text-[#0066FF] transition-colors shrink-0 cursor-pointer"
-                      >
-                        <span>VIEW CASE STUDY</span>
-                        <span className="transition-transform duration-200 group-hover:translate-x-1.5">→</span>
-                      </button>
                     </div>
                   </div>
 
                   {/* Stylized Abstract Visual Preview Column */}
-                  <div className={`lg:col-span-6 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
+                  <div className="min-w-0">
                     <div className="w-full transition-transform duration-300 group-hover:scale-[1.01]">
                       <ProjectVisual
                         type={project.visualType}
@@ -115,6 +106,20 @@ export const ProjectShowcase: React.FC = () => {
                         isHovered={isHovered}
                       />
                     </div>
+                  </div>
+
+                  {/* Project actions */}
+                  <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-4 border-t border-[#1C2530]">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedProject(project);
+                      }}
+                      className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.16em] text-[#F2F3F5] group-hover:text-[#0066FF] transition-colors shrink-0 cursor-pointer"
+                    >
+                      <span>VIEW CASE STUDY</span>
+                      <span className="transition-transform duration-200 group-hover:translate-x-1.5">→</span>
+                    </button>
                   </div>
 
                 </div>

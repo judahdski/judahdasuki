@@ -11,13 +11,13 @@ export const ExperienceSection: React.FC = () => {
                 <div className="grid min-w-0 grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
                     {/* Left Column: Sticky Editorial Heading & Summary */}
                     <div className="min-w-0 lg:col-span-4">
-                        <div className="lg:sticky lg:top-28">
+                        <div className="[container-type:inline-size] lg:sticky lg:top-28">
                             <div className="flex items-center gap-2.5 text-xs font-mono text-[#0066FF] uppercase tracking-[0.2em] mb-2 font-semibold">
                                 <span>03</span>
                                 <span>/</span>
                                 <span>TRACK RECORD</span>
                             </div>
-                            <h2 className="min-w-0 max-w-full break-words text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold uppercase text-[#F2F3F5] tracking-tight mb-4">
+                            <h2 className="min-w-0 max-w-full whitespace-nowrap text-[min(1.875rem,9cqi)] sm:text-[min(2.25rem,9cqi)] lg:text-[min(3rem,9cqi)] leading-tight font-display font-extrabold uppercase text-[#F2F3F5] tracking-tight mb-4">
                                 CAREER &amp;
                                 <br />
                                 EXPERIENCE
