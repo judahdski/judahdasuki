@@ -250,7 +250,7 @@ export const ContactSection: React.FC = () => {
                                 </div>
 
                                 <p className="text-[10px] font-mono text-[#69727D] text-center pt-2">
-                                    Direct inquiry to judahdasuki93@gmail.com ·
+                                    Direct inquiry to judahjmdasuki@gmail.com ·
                                     No third-party data tracking
                                 </p>
                             </form>

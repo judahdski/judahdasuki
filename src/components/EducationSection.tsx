@@ -12,8 +12,8 @@ export const EducationSection: React.FC = () => {
             <div className="absolute inset-0 blueprint-grid opacity-40 pointer-events-none" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 relative">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-                    <div className="lg:col-span-4">
+                <div className="grid grid-cols-1 gap-10 items-start">
+                    <div>
                         <div className="flex items-center gap-2.5 text-xs font-mono text-[#0066FF] uppercase tracking-[0.2em] mb-3 font-semibold">
                             <span>04</span>
                             <span>/</span>
@@ -28,7 +28,7 @@ export const EducationSection: React.FC = () => {
                         </p>
                     </div>
 
-                    <article className="lg:col-span-8 border-t border-[#2A3441] pt-6 sm:pt-8">
+                    <article className="border-t border-[#2A3441] pt-6 sm:pt-8">
                         <div className="grid grid-cols-1 sm:grid-cols-[11rem_1fr] gap-5 sm:gap-8">
                             <div className="font-mono text-xs uppercase tracking-[0.14em] text-[#9AA3AD]">
                                 <span className="block text-[#F2F3F5] font-semibold">
@@ -49,6 +49,25 @@ export const EducationSection: React.FC = () => {
                                 <p className="max-w-2xl mt-5 text-sm sm:text-base text-[#9AA3AD] leading-relaxed">
                                     {education.note}
                                 </p>
+
+                                <div className="mt-7 grid grid-cols-2 gap-6 border-t border-[#2A3441] pt-5">
+                                    <div>
+                                        <p className="text-[11px] font-mono uppercase tracking-[0.14em] text-[#69727D]">
+                                            IPK / GPA
+                                        </p>
+                                        <p className="mt-2 text-xl font-display font-bold text-[#F2F3F5]">
+                                            {education.gpa}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p className="text-[11px] font-mono uppercase tracking-[0.14em] text-[#69727D]">
+                                            Total Credits
+                                        </p>
+                                        <p className="mt-2 text-xl font-display font-bold text-[#F2F3F5]">
+                                            {education.totalCredits} SKS
+                                        </p>
+                                    </div>
+                                </div>
 
                                 <div className="mt-7 flex items-center gap-3 text-[11px] font-mono uppercase tracking-[0.14em] text-[#69727D]">
                                     <span className="w-8 h-px bg-[#0066FF]" />

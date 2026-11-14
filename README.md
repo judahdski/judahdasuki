@@ -8,5 +8,5 @@ Editorial Structure & Flow:
 04 — Skills & Stack: Structured technical capability matrix categorizing Core Stack, Supporting Stack, and Engineering & Tools, visually distinguishing Proficient vs. Working Knowledge with an interactive filter, paired with Telkom University education.
 05 — Engineering Process ("How I Build"): 6-step engineering methodology (Understand, Design, Build, Validate, Deploy, Improve) with interactive deliverable breakdowns, Judah's brand quote (“Turning ideas into systems. One component at a time.”), and the terminal card.
 06 — About & Credentials: Grounded narrative based directly on the CV, covering enterprise systems, automation, Telkom University degree, language fluency, and certifications.
-07 — Contact & CTA: High-impact closing section ("LET'S BUILD SYSTEMS THAT MATTER."), quick-copy verified email (judahdasuki93@gmail.com), verified LinkedIn link, location, and a direct inquiry form.
+07 — Contact & CTA: High-impact closing section ("LET'S BUILD SYSTEMS THAT MATTER."), quick-copy verified email (judahjmdasuki@gmail.com), verified LinkedIn link, location, and a direct inquiry form.
 Header & Footer: Sticky navigation header with scroll-reactive backdrop blur and mobile drawer, plus a minimal engineering footer.

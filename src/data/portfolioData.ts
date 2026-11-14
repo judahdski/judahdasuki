@@ -60,7 +60,7 @@ export const PORTFOLIO_DATA = {
     title: "Full-stack Web Developer",
     tagline: "Engineer · Builder · Problem Solver",
     location: "Tangerang Selatan, Banten, Indonesia",
-    email: "judahdasuki93@gmail.com",
+    email: "judahjmdasuki@gmail.com",
     linkedin: "https://www.linkedin.com/in/judahdasuki/",
     status: "Available for selected opportunities",
     corePhilosophy: "Turning ideas into practical systems. Building maintainable software that solves real business problems.",
@@ -416,7 +416,9 @@ export const PORTFOLIO_DATA = {
     institution: "Telkom University",
     degree: "Diploma 3 of Application Software Engineering",
     period: "July 2020 – June 2023",
-    note: "Application Software Engineering specialization with focus on software development lifecycle, database design, and web architecture."
+    note: "Application Software Engineering specialization with focus on software development lifecycle, database design, and web architecture.",
+    gpa: "3.75 / 4.00",
+    totalCredits: 110
   },
 
   languages: [
